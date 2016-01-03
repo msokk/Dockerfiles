@@ -19,12 +19,12 @@ RUN apk --no-cache add --virtual build-dependencies tar postgresql ca-certificat
     # Keep only pg_dump/pg_dumpall
     cp /usr/bin/pg_dump* /usr/local/bin/ && \
 
+    chmod u+x /usr/local/bin/pg_dump* /usr/local/bin/go-cron /usr/local/bin/gof3r && \
+
     # Cleanup
     apk del build-dependencies
 
 COPY backup.sh /app/backup.sh
-
-RUN chmod +x /app/backup.sh && \
-    chmod u+x /usr/local/bin/pg_dump* /usr/local/bin/go-cron /usr/local/bin/gof3r
+RUN chmod +x /app/backup.sh
 
 CMD ["sh", "-c", "go-cron -s \"${SCHEDULE}\" -- sh /app/backup.sh"]
