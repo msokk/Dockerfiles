@@ -1,4 +1,5 @@
 # postgres-s3-backup
+[![Docker Hub](https://img.shields.io/badge/docker-ready-blue.svg)](https://registry.hub.docker.com/u/msokk/postgres-s3-backup/)
 
 Cron scheduled streaming upload of compressed PostgreSQL database dumps to AWS S3.
 
