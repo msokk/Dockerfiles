@@ -1,11 +1,11 @@
 FROM alpine:3.3
 
 # Run every night by default
-ENV SCHEDULE "@daily"
-ENV PGUSER postgres
-ENV COMPRESSION_LEVEL 9
-ENV NAME_PREFIX 'database-archive'
-ENV AWS_ENDPOINT 's3.amazonaws.com'
+ENV SCHEDULE="@daily" \
+    PGUSER="postgres" \
+    COMPRESSION_LEVEL=9 \
+    NAME_PREFIX='database-archive' \
+    AWS_ENDPOINT='s3.amazonaws.com'
 
 RUN apk --no-cache add --virtual build-dependencies tar postgresql ca-certificates && \
     apk --no-cache add libpq && \
