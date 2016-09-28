@@ -11,6 +11,9 @@ export PGPORT=${PGPORT:-$POSTGRES_PORT_5432_TCP_PORT}
 : ${AWS_SECRET_ACCESS_KEY:?"AWS_SECRET_ACCESS_KEY not specified"}
 : ${AWS_BUCKET:?"AWS_BUCKET not specified"}
 
+# Optional variables
+: ${CMD_OPTIONS:=""}
+
 # Use pg_dump if database name is specified
 [ -z "$PGDATABASE" ] && CMD=pg_dumpall || CMD=pg_dump
 # Add database name as suffix to name
@@ -19,5 +22,5 @@ export PGPORT=${PGPORT:-$POSTGRES_PORT_5432_TCP_PORT}
 BACKUP="${NAME_PREFIX}_$(date +"%Y-%m-%dT%H%M%SZ").psql.gz"
 
 echo "Starting database backup to ${AWS_BUCKET}/${BACKUP}"
-$CMD | gzip -c${COMPRESSION_LEVEL} | gof3r put -b $AWS_BUCKET -k $BACKUP --endpoint $AWS_ENDPOINT
+$CMD ${CMD_OPTIONS} | gzip -c${COMPRESSION_LEVEL} | gof3r put -b $AWS_BUCKET -k $BACKUP --endpoint $AWS_ENDPOINT
 echo "Backup finished!"
