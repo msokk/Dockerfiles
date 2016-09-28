@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM alpine:3.4
 
 # Run every night by default
 ENV SCHEDULE="@daily" \
