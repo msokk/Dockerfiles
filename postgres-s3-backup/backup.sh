@@ -16,6 +16,8 @@ export PGPORT=${PGPORT:-$POSTGRES_PORT_5432_TCP_PORT}
 
 # Use pg_dump if database name is specified
 [ -z "$PGDATABASE" ] && CMD=pg_dumpall || CMD=pg_dump
+# Use password authentication if a password is set
+[ ! -z "$PGPASSWORD" ] && CMD="${CMD} --password"
 # Add database name as suffix to name
 [ ! -z "$PGDATABASE" ] && NAME_PREFIX="${NAME_PREFIX}_${PGDATABASE}"
 
