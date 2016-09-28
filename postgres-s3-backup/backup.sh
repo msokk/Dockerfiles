@@ -16,7 +16,7 @@ export PGPORT=${PGPORT:-$POSTGRES_PORT_5432_TCP_PORT}
 # Add database name as suffix to name
 [ ! -z "$PGDATABASE" ] && NAME_PREFIX="${NAME_PREFIX}_${PGDATABASE}"
 
-BACKUP="${NAME_PREFIX}_`date +"%Y-%m-%d_%H-%M"`.psql.gz"
+BACKUP="${NAME_PREFIX}_$(date +"%Y-%m-%dT%H%M%SZ").psql.gz"
 
 echo "Starting database backup to ${AWS_BUCKET}/${BACKUP}"
 $CMD | gzip -c${COMPRESSION_LEVEL} | gof3r put -b $AWS_BUCKET -k $BACKUP --endpoint $AWS_ENDPOINT
